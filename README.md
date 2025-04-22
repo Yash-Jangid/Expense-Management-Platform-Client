@@ -1,70 +1,158 @@
-# Getting Started with Create React App
+Here's a single combined `README.md` file that includes clear **Frontend** and **Backend** sections according to your current **Expense Manager App** setup and workflow. It's written in a clean and structured way for both developers and collaborators.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+✅ `README.md` (Unified for Frontend & Backend)
 
-In the project directory, you can run:
+```md
+💰 Expense Manager Application
 
-### `npm start`
+A full-stack expense management application built with **React.js** (frontend) and **Node.js + Express + MySQL** (backend). Users can register, log in, add income/expense transactions, view summaries, and export reports in PDF format.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+/client        - React frontend (Tailwind + Shadcn UI)
+/server        - Node.js backend (Express, MySQL, JWT)
+/database      - SQL schema & seed data
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+🔐 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- User Authentication (JWT based)
+- Add / View / Delete Expense Transactions
+- Transaction Categories (Income / Expense)
+- PDF Export with Summary & Paginated Table
+- Token Refresh & Middleware-based Protection
+- Clean UI with Tailwind CSS + Shadcn UI
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🚀 Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Frontend                | Backend                       |
+|-------------------------|-------------------------------|
+| React.js                | Node.js (Express.js)          |
+| React Router DOM        | MySQL                         |
+| Tailwind CSS            | bcrypt (password hashing)     |
+| Shadcn UI Components    | jsonwebtoken (JWT auth)       |
+| Axios + Toastify        | PDFKit (PDF report export)    |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+⚙️ Backend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Install dependencies**
+   ```bash
+   cd server
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Create `.env` file**
+   ```env
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=yourpassword
+   DB_NAME=expense_manager
+   JWT_SECRET=your_secret
+   TOKEN_EXPIRY=1d
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Run server**
+   ```bash
+   npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Endpoints Overview**
+   - `POST /auth/register` – Register user
+   - `POST /auth/login` – Login user
+   - `GET /expenses` – Get user's expenses
+   - `POST /expenses` – Add expense
+   - `DELETE /expenses/:id` – Delete expense
+   - `GET /expenses/export/pdf` – Export report as PDF
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 💾 MySQL Schema
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sql
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  token TEXT
+);
 
-### Code Splitting
+CREATE TABLE expenses (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  category ENUM('Income', 'Expense') NOT NULL,
+  description TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🧩 Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Install dependencies**
+   ```bash
+   cd client
+   npm install
+   ```
 
-### Making a Progressive Web App
+2. **Start the dev server**
+   ```bash
+   npm run dev
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Routes Overview**
+   - `/login` – User login
+   - `/register` – User registration
+   - `/dashboard` – View/Add transactions
+   - `/export/pdf` – Export button triggers report
 
-### Advanced Configuration
+4. **Token Handling**
+   - JWT token is stored in `sessionStorage`
+   - Authenticated routes use Axios with token in headers
+   - Errors (like 401) are shown using `react-toastify`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 📄 PDF Export Preview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The PDF includes:
 
-### `npm run build` fails to minify
+- Report title + generation date
+- Summary section (total income, expense, balance)
+- Paginated table with:
+  - Transaction ID
+  - Type (Income/Expense)
+  - Amount
+  - Description
+  - Date
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🛡️ Middleware
+
+- Token validation middleware (`authMiddleware.js`) verifies JWT before allowing access to protected routes like `/expenses`.
+
+---
+
+## 🧪 Future Improvements
+
+- Search, filter, and sort transactions
+- Monthly analytics / charts
+- Recurring expense support
+- Multi-device sync (PWA)
+- Dark mode support
+
+---
+
+## 🧑‍💻 Author
+
+Yash Jangid
