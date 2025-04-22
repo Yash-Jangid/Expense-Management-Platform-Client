@@ -1,7 +1,3 @@
-Here's a single combined `README.md` file that includes clear **Frontend** and **Backend** sections according to your current **Expense Manager App** setup and workflow. It's written in a clean and structured way for both developers and collaborators.
-
----
-
 ✅ `README.md` (Unified for Frontend & Backend)
 
 ```md
