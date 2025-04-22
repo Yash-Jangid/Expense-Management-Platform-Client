@@ -90,7 +90,7 @@ export default function Register() {
               <DollarSign className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h2 className="mt-4 text-2xl font-bold text-white">Finance Tracker</h2>
+          <h2 className="mt-4 text-2xl font-bold text-white">Finance</h2>
           <p className="mt-2 text-blue-200">Create your account</p>
         </div>
 
