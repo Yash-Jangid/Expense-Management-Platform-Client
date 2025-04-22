@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/45caba36-0d20-4903-8f7f-ebc557d0dd0b)✅ `README.md`
+✅ `README.md`
 
 ```md
 💰 Expense Manager Application
