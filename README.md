@@ -1,4 +1,4 @@
-✅ `README.md`
+![image](https://github.com/user-attachments/assets/45caba36-0d20-4903-8f7f-ebc557d0dd0b)✅ `README.md`
 
 ```md
 💰 Expense Manager Application
@@ -151,4 +151,26 @@ The PDF includes:
 
 ## 🧑‍💻 Author
 
+
+## UI ScreenShots
+
+----
+Dashboard
+
+![image](https://github.com/user-attachments/assets/2c2efe4c-1fe6-481b-bbdf-c1e07297c007)
+
+----
+
+Signup Page
+
+![image](https://github.com/user-attachments/assets/c843648e-c1cc-443f-94cf-14880b1762c4)
+
+----
+
+Login Page
+
+![image](https://github.com/user-attachments/assets/2091e3c2-f766-4b9c-a394-6fe9ec44c718)
+
+
+Devloped by =>>
 Yash Jangid
