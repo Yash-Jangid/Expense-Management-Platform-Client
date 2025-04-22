@@ -1,32 +1,33 @@
-import axios from 'axios';
-import { refreshAccessToken } from './auth';
-
+import axios from "axios";
+import { refreshAccessToken } from "./auth";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api",
   withCredentials: false,
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = sessionStorage.getItem("session_token");
+  const userEmail = localStorage.getItem("user");
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers['X-User-Email'] = userEmail;
   }
   return config;
 });
 
 axiosInstance.interceptors.response.use(
-  res => res,
+  (res) => res,
   async (err) => {
     const originalRequest = err.config;
     if (err.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const newToken = await refreshAccessToken();
       if (newToken) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+        axios.defaults.headers.common["Authorization"] = "Bearer " + newToken;
         return axiosInstance(originalRequest);
       } else {
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
     }
     return Promise.reject(err);
