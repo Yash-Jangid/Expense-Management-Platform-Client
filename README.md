@@ -1,4 +1,4 @@
-✅ `README.md` (Unified for Frontend & Backend)
+✅ `README.md`
 
 ```md
 💰 Expense Manager Application
